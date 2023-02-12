@@ -1,4 +1,9 @@
-# Whisper
+# Whisper2pinyin
+
+This is forked from [[Whisper]](https://github.com/openai/whisper) in order to better convert audio to pinyin
+
+
+#
 
 [[Blog]](https://openai.com/blog/whisper)
 [[Paper]](https://arxiv.org/abs/2212.04356)
@@ -6,14 +11,6 @@
 [[Colab example]](https://colab.research.google.com/github/openai/whisper/blob/master/notebooks/LibriSpeech.ipynb)
 
 Whisper is a general-purpose speech recognition model. It is trained on a large dataset of diverse audio and is also a multi-task model that can perform multilingual speech recognition as well as speech translation and language identification.
-
-
-## Approach
-
-![Approach](https://raw.githubusercontent.com/openai/whisper/main/approach.png)
-
-A Transformer sequence-to-sequence model is trained on various speech processing tasks, including multilingual speech recognition, speech translation, spoken language identification, and voice activity detection. All of these tasks are jointly represented as a sequence of tokens to be predicted by the decoder, allowing for a single model to replace many different stages of a traditional speech processing pipeline. The multitask training format uses a set of special tokens that serve as task specifiers or classification targets.
-
 
 ## Setup
 
@@ -23,11 +20,11 @@ We used Python 3.9.9 and [PyTorch](https://pytorch.org/) 1.10.1 to train and tes
 
 Alternatively, the following command will pull and install the latest commit from this repository, along with its Python dependencies:
 
-    pip install git+https://github.com/openai/whisper.git 
+    pip install git+https://github.com/freatraum/whisper.git 
 
 To update the package to the latest version of this repository, please run:
 
-    pip install --upgrade --no-deps --force-reinstall git+https://github.com/openai/whisper.git
+    pip install --upgrade --no-deps --force-reinstall git+https://github.com/freatraum/whisper.git
 
 It also requires the command-line tool [`ffmpeg`](https://ffmpeg.org/) to be installed on your system, which is available from most package managers:
 
