@@ -5,7 +5,11 @@ __pycache__/
 .pytest_cache
 .ipynb_checkpoints
 
+.pypirc
+dist/
+
 thumbs.db
 .DS_Store
 .idea
+
 
