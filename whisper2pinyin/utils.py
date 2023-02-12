@@ -3,6 +3,9 @@ import os
 import sys
 import zlib
 from typing import Callable, TextIO
+from xpinyin import Pinyin
+from string import punctuation
+
 
 system_encoding = sys.getdefaultencoding()
 
@@ -68,7 +71,7 @@ class ResultWriter:
 
     def __call__(self, result: dict, audio_path: str):
         audio_basename = os.path.basename(audio_path)
-        output_path = os.path.join(self.output_dir, audio_basename + "." + self.extension)
+        output_path = os.path.join(self.output_dir, audio_basename.replace(os.path.splitext(audio_basename)[-1],'') + "." + self.extension)
 
         with open(output_path, "w", encoding="utf-8") as f:
             self.write_result(result, file=f)
@@ -78,11 +81,19 @@ class ResultWriter:
 
 
 class WriteTXT(ResultWriter):
-    extension: str = "txt"
+    extension: str = "lab"
 
     def write_result(self, result: dict, file: TextIO):
         for segment in result["segments"]:
-            print(segment['text'].strip(), file=file, flush=True)
+            outtext=Pinyin().get_pinyin(segment['text'].strip(),' ')
+            outtext=segment['text']
+            for i in punctuation:
+                outtext=outtext.replace(i,'')
+            punctuationzh="“”。？！：-_-——"
+            for i in punctuationzh:
+                outtext=outtext.replace(i,'')
+            
+            print(outtext, file=file, flush=True,end=' ')
 
 
 class WriteVTT(ResultWriter):

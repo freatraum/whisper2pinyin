@@ -6,6 +6,7 @@ from typing import Optional, Tuple, Union, TYPE_CHECKING
 import numpy as np
 import torch
 import tqdm
+from xpinyin import Pinyin
 
 from .audio import SAMPLE_RATE, N_FRAMES, HOP_LENGTH, pad_or_trim, log_mel_spectrogram
 from .decoding import DecodingOptions, DecodingResult
@@ -149,6 +150,8 @@ def transcribe(
         *, start: float, end: float, text_tokens: torch.Tensor, result: DecodingResult
     ):
         text = tokenizer.decode([token for token in text_tokens if token < tokenizer.eot])
+        text1=Pinyin().get_pinyin(text.strip(),' ')
+        filename=audio
         if len(text.strip()) == 0:  # skip empty text output
             return
 
@@ -158,7 +161,7 @@ def transcribe(
                 "seek": seek,
                 "start": start,
                 "end": end,
-                "text": text,
+                "text": text1,
                 "tokens": text_tokens.tolist(),
                 "temperature": result.temperature,
                 "avg_logprob": result.avg_logprob,
@@ -167,7 +170,7 @@ def transcribe(
             }
         )
         if verbose:
-            print(make_safe(f"[{format_timestamp(start)} --> {format_timestamp(end)}] {text}"))
+            print(make_safe(f"[{format_timestamp(start)} --> {format_timestamp(end)}] {filename}  {text}  :  {text1}"))
 
     # show the progress bar when verbose is False (otherwise the transcribed text will be printed)
     num_frames = mel.shape[-1]

@@ -1,4 +1,4 @@
-from whisper.tokenizer import get_tokenizer
+from whisper2pinyin.tokenizer import get_tokenizer
 
 
 def test_tokenizer():
