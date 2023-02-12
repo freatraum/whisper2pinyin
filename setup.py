@@ -4,13 +4,13 @@ import pkg_resources
 from setuptools import setup, find_packages
 
 
-def read_version(fname="whisper/version.py"):
+def read_version(fname="whisper2pinyin/version.py"):
     exec(compile(open(fname, encoding="utf-8").read(), fname, "exec"))
     return locals()["__version__"]
 
 
 setup(
-    name="Whisper-audio2pinyin",
+    name="Whisper2pinyin",
     py_modules=["whisper2pinyin"],
     version=read_version(),
     description="Robust Speech Recognition via Large-Scale Weak Supervision",

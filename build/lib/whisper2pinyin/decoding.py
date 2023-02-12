@@ -12,11 +12,11 @@ from .tokenizer import Tokenizer, get_tokenizer
 from .utils import compression_ratio
 
 if TYPE_CHECKING:
-    from .model import Whisper2pinyin
+    from .model import Whisper
 
 
 @torch.no_grad()
-def detect_language(model: "Whisper2pinyin", mel: Tensor, tokenizer: Tokenizer = None) -> Tuple[Tensor, List[dict]]:
+def detect_language(model: "Whisper", mel: Tensor, tokenizer: Tokenizer = None) -> Tuple[Tensor, List[dict]]:
     """
     Detect the spoken language in the audio, and return them as list of strings, along with the ids
     of the most probable language tokens and the probability distribution over all language tokens.
@@ -128,8 +128,8 @@ class Inference:
 
 
 class PyTorchInference(Inference):
-    def __init__(self, model: "Whisper2pinyin", initial_token_length: int):
-        self.model: "Whisper2pinyin" = model
+    def __init__(self, model: "Whisper", initial_token_length: int):
+        self.model: "Whisper" = model
         self.initial_token_length = initial_token_length
         self.kv_cache = {}
         self.hooks = []
@@ -452,7 +452,7 @@ class DecodingTask:
     decoder: TokenDecoder
     logit_filters: List[LogitFilter]
 
-    def __init__(self, model: "Whisper2pinyin", options: DecodingOptions):
+    def __init__(self, model: "Whisper", options: DecodingOptions):
         self.model = model
 
         language = options.language or "en"
@@ -681,7 +681,7 @@ class DecodingTask:
 
 
 @torch.no_grad()
-def decode(model: "Whisper2pinyin", mel: Tensor, options: DecodingOptions = DecodingOptions()) -> Union[DecodingResult, List[DecodingResult]]:
+def decode(model: "Whisper", mel: Tensor, options: DecodingOptions = DecodingOptions()) -> Union[DecodingResult, List[DecodingResult]]:
     """
     Performs decoding of 30-second audio segment(s), provided as Mel spectrogram(s).
 

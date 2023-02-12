@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 from .audio import load_audio, log_mel_spectrogram, pad_or_trim
 from .decoding import DecodingOptions, DecodingResult, decode, detect_language
-from .model import Whisper2pinyin, ModelDimensions
+from .model import Whisper, ModelDimensions
 from .transcribe import transcribe
 from .version import __version__
 
@@ -69,7 +69,7 @@ def available_models() -> List[str]:
     return list(_MODELS.keys())
 
 
-def load_model(name: str, device: Optional[Union[str, torch.device]] = None, download_root: str = None, in_memory: bool = False) -> Whisper2pinyin:
+def load_model(name: str, device: Optional[Union[str, torch.device]] = None, download_root: str = None, in_memory: bool = False) -> Whisper:
     """
     Load a Whisper ASR model
 
@@ -101,7 +101,7 @@ def load_model(name: str, device: Optional[Union[str, torch.device]] = None, dow
                     os.path.expanduser("~"), ".cache"
                 )
             ),
-            "whisper2pinyin"
+            "whisper"
         )
 
     if name in _MODELS:
@@ -116,7 +116,7 @@ def load_model(name: str, device: Optional[Union[str, torch.device]] = None, dow
     del checkpoint_file
 
     dims = ModelDimensions(**checkpoint["dims"])
-    model = Whisper2pinyin(dims)
+    model = Whisper(dims)
     model.load_state_dict(checkpoint["model_state_dict"])
 
     return model.to(device)
