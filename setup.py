@@ -19,7 +19,7 @@ setup(
     readme="README.md",
     python_requires=">=3.7",
     author="Freatraum",
-    url="https://github.com/openai/whisper",
+    url="https://github.com/freatraum/whisper2pinyin",
     license="MIT",
     packages=find_packages(exclude=["tests*"]),
     install_requires=[
@@ -29,7 +29,7 @@ setup(
         )
     ],
     entry_points={
-        "console_scripts": ["whisper=whisper.transcribe:cli"],
+        "console_scripts": ["whisper2pinyin=whisper2pinyin.transcribe:cli"],
     },
     include_package_data=True,
     extras_require={"dev": ["pytest"]},

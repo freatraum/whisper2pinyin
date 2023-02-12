@@ -195,7 +195,7 @@ class TextDecoder(nn.Module):
         return logits
 
 
-class Whisper(nn.Module):
+class Whisper2pinyin(nn.Module):
     def __init__(self, dims: ModelDimensions):
         super().__init__()
         self.dims = dims

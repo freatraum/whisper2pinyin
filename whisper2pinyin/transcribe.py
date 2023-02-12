@@ -14,11 +14,11 @@ from .tokenizer import LANGUAGES, TO_LANGUAGE_CODE, get_tokenizer
 from .utils import exact_div, format_timestamp, make_safe, optional_int, optional_float, str2bool, get_writer
 
 if TYPE_CHECKING:
-    from .model import Whisper
+    from .model import Whisper2pinyin
 
 
 def transcribe(
-    model: "Whisper",
+    model: "Whisper2pinyin",
     audio: Union[str, np.ndarray, torch.Tensor],
     *,
     verbose: Optional[bool] = None,
@@ -268,7 +268,7 @@ def cli():
     parser.add_argument("--verbose", type=str2bool, default=True, help="whether to print out the progress and debug messages")
 
     parser.add_argument("--task", type=str, default="transcribe", choices=["transcribe", "translate"], help="whether to perform X->X speech recognition ('transcribe') or X->English translation ('translate')")
-    parser.add_argument("--language", type=str, default=None, choices=sorted(LANGUAGES.keys()) + sorted([k.title() for k in TO_LANGUAGE_CODE.keys()]), help="language spoken in the audio, specify None to perform language detection")
+    parser.add_argument("--language", type=str, default='zh', choices=sorted(LANGUAGES.keys()) + sorted([k.title() for k in TO_LANGUAGE_CODE.keys()]), help="language spoken in the audio, specify None to perform language detection")
 
     parser.add_argument("--temperature", type=float, default=0, help="temperature to use for sampling")
     parser.add_argument("--best_of", type=optional_int, default=5, help="number of candidates when sampling with non-zero temperature")
