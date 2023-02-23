@@ -89,11 +89,11 @@ class WriteTXT(ResultWriter):
             outtext=segment['text']
             for i in punctuation:
                 outtext=outtext.replace(i,'')
-            punctuationzh="“”。？！：-_-——"
+            punctuationzh="“”。？！：-_-——~~"
             for i in punctuationzh:
                 outtext=outtext.replace(i,'')
             
-            print(outtext, file=file, flush=True,end=' ')
+            print(outtext, file=file, flush=True,end='')
 
 
 class WriteVTT(ResultWriter):
